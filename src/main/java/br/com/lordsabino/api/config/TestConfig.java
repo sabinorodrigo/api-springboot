@@ -3,7 +3,9 @@ package br.com.lordsabino.api.config;
 import java.time.Instant;
 import java.util.Arrays;
 
+import br.com.lordsabino.api.Entities.Category;
 import br.com.lordsabino.api.Entities.enums.OrderStatus;
+import br.com.lordsabino.api.repositories.CategoryRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -21,14 +23,23 @@ public class TestConfig implements CommandLineRunner {
 
     private OrderRepository orderRepository;
 
-    public TestConfig(UserRepository userRepository, OrderRepository orderRepository) {
+    private CategoryRepository categoryRepository;
+
+    public TestConfig(UserRepository userRepository, OrderRepository orderRepository, CategoryRepository categoryRepository) {
         this.userRepository = userRepository;
         this.orderRepository = orderRepository;
+        this.categoryRepository = categoryRepository;
     }
 
     @Override
     public void run(String... args) throws Exception {
-        
+
+        Category cat1 = new Category(null, "Electronics");
+        Category cat2 = new Category(null, "Books");
+        Category cat3 = new Category(null, "Computers");
+
+        categoryRepository.saveAll(Arrays.asList(cat1, cat2, cat3));
+
         User frodo = new User(null, "Frodo Bolseiro", "frodo@email.com", "15151515", "bolseiro");
         User bilbo = new User(null, "Bilbo Bolseiro", "bilbo@email.com", "16161616", "bolseiro");
 
