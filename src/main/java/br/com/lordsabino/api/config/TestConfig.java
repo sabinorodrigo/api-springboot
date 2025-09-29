@@ -3,6 +3,7 @@ package br.com.lordsabino.api.config;
 import java.time.Instant;
 import java.util.Arrays;
 
+import br.com.lordsabino.api.Entities.enums.OrderStatus;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -31,9 +32,9 @@ public class TestConfig implements CommandLineRunner {
         User frodo = new User(null, "Frodo Bolseiro", "frodo@email.com", "15151515", "bolseiro");
         User bilbo = new User(null, "Bilbo Bolseiro", "bilbo@email.com", "16161616", "bolseiro");
 
-        Order o1 = new Order(null, Instant.parse("2025-06-20T19:53:07Z"), frodo);
-        Order o2 = new Order(null, Instant.parse("2025-07-21T03:42:10Z"), bilbo);
-        Order o3 = new Order(null, Instant.parse("2025-07-22T15:21:22Z"), frodo);
+        Order o1 = new Order(null, Instant.parse("2025-06-20T19:53:07Z"), OrderStatus.PAID, frodo);
+        Order o2 = new Order(null, Instant.parse("2025-07-21T03:42:10Z"), OrderStatus.WAITING_PAYMENT, bilbo);
+        Order o3 = new Order(null, Instant.parse("2025-07-22T15:21:22Z"), OrderStatus.WAITING_PAYMENT, frodo);
 
         userRepository.saveAll(Arrays.asList(frodo, bilbo));
         orderRepository.saveAll(Arrays.asList(o1, o2, o3));
