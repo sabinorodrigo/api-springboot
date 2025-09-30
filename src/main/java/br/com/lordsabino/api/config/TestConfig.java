@@ -1,11 +1,14 @@
 package br.com.lordsabino.api.config;
 
+import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.Arrays;
 
 import br.com.lordsabino.api.Entities.Category;
+import br.com.lordsabino.api.Entities.Product;
 import br.com.lordsabino.api.Entities.enums.OrderStatus;
 import br.com.lordsabino.api.repositories.CategoryRepository;
+import br.com.lordsabino.api.repositories.ProductRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -25,10 +28,17 @@ public class TestConfig implements CommandLineRunner {
 
     private CategoryRepository categoryRepository;
 
-    public TestConfig(UserRepository userRepository, OrderRepository orderRepository, CategoryRepository categoryRepository) {
+    private ProductRepository productRepository;
+
+    public TestConfig(
+            UserRepository userRepository,
+            OrderRepository orderRepository,
+            CategoryRepository categoryRepository,
+            ProductRepository productRepository) {
         this.userRepository = userRepository;
         this.orderRepository = orderRepository;
         this.categoryRepository = categoryRepository;
+        this.productRepository = productRepository;
     }
 
     @Override
@@ -38,7 +48,14 @@ public class TestConfig implements CommandLineRunner {
         Category cat2 = new Category(null, "Books");
         Category cat3 = new Category(null, "Computers");
 
+        Product p1 = new Product(null, "The Lord of the Rings", "Lorem ipsum dolor sit amet, consectetur.", new BigDecimal(90.5), "");
+        Product p2 = new Product(null, "Smart TV", "Nulla eu imperdiet purus. Maecenas ante.", new BigDecimal(2190.0), "");
+        Product p3 = new Product(null, "Macbook Pro", "Nam eleifend maximus tortor, at mollis.", new BigDecimal(1250.0), "");
+        Product p4 = new Product(null, "PC Gamer", "Donec aliquet odio ac rhoncus cursus.", new BigDecimal(1200.0), "");
+        Product p5 = new Product(null, "Rails for Dummies", "Cras fringilla convallis sem vel faucibus.", new BigDecimal(100.99), "");
+
         categoryRepository.saveAll(Arrays.asList(cat1, cat2, cat3));
+        productRepository.saveAll(Arrays.asList(p1, p2, p3, p4, p5));
 
         User frodo = new User(null, "Frodo Bolseiro", "frodo@email.com", "15151515", "bolseiro");
         User bilbo = new User(null, "Bilbo Bolseiro", "bilbo@email.com", "16161616", "bolseiro");
