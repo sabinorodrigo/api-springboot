@@ -23,7 +23,7 @@ public class Product implements Serializable {
 
     private String description;
 
-    private BigDecimal price;
+    private Double price;
 
     private String imgUrl;
 
@@ -41,7 +41,7 @@ public class Product implements Serializable {
     public Product() {
     }
 
-    public Product(Long id, String name, String description, BigDecimal price, String imgUrl) {
+    public Product(Long id, String name, String description, Double price, String imgUrl) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -73,11 +73,11 @@ public class Product implements Serializable {
         this.description = description;
     }
 
-    public BigDecimal getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(BigDecimal price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 

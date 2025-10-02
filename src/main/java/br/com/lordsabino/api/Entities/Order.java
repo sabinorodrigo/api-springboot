@@ -1,6 +1,7 @@
 package br.com.lordsabino.api.Entities;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
@@ -31,7 +32,7 @@ public class Order implements Serializable {
     private User client;
 
     @OneToMany(mappedBy = "id.order")
-    private Set<OrderItem> items = new HashSet<>();
+    private final Set<OrderItem> items = new HashSet<>();
 
     @OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
     private Payment payment;
@@ -89,6 +90,14 @@ public class Order implements Serializable {
         this.payment = payment;
     }
 
+    public Double getTotal() {
+        double sum = 0.0;
+        for (OrderItem x : items) {
+            sum += x.getSubTotal();
+        }
+        return sum;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -107,11 +116,8 @@ public class Order implements Serializable {
             return false;
         Order other = (Order) obj;
         if (id == null) {
-            if (other.id != null)
-                return false;
-        } else if (!id.equals(other.id))
-            return false;
-        return true;
+            return other.id == null;
+        } else return id.equals(other.id);
     }
 
     

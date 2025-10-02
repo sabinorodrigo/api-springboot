@@ -21,11 +21,11 @@ public class OrderItem implements Serializable {
 
     private Integer quantity;
 
-    private BigDecimal price;
+    private Double price;
 
     public OrderItem() {}
 
-    public OrderItem(Order order, Product product, Integer quantity, BigDecimal price) {
+    public OrderItem(Order order, Product product, Integer quantity, Double price) {
         id.setOrder(order);
         id.setProduct(product);
         this.quantity = quantity;
@@ -57,12 +57,16 @@ public class OrderItem implements Serializable {
         this.quantity = quantity;
     }
 
-    public BigDecimal getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(BigDecimal price) {
+    public void setPrice(Double price) {
         this.price = price;
+    }
+
+    public Double getSubTotal() {
+        return price * quantity;
     }
 
     @Override
