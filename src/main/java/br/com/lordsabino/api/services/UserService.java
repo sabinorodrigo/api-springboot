@@ -3,6 +3,7 @@ package br.com.lordsabino.api.services;
 import java.util.List;
 import java.util.Optional;
 
+import br.com.lordsabino.api.resources.exceptions.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import br.com.lordsabino.api.Entities.User;
@@ -23,7 +24,7 @@ public class UserService {
 
     public User findById(Long id) {
         Optional<User> obj = repository.findById(id);
-        return obj.get();
+        return obj.orElseThrow(() -> new ResourceNotFoundException(id));
     }
 
     public User insert(User obj) {
